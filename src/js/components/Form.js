@@ -61,7 +61,6 @@ class Form extends React.Component{
                 this.setState({ errors })
             })
 
-            console.log(errors)
     }
 
     submit(formData) {
@@ -70,17 +69,20 @@ class Form extends React.Component{
     }
 
     generateRandomSeed(){
-        let _formData = {
+        const _formData = {
             seed: bip39.generateMnemonic(),
             path: "m/84'/0'/0'/0/0"
         }
+        const _errors = this.validator.errors
 
+        _errors.items = []
         this.setState({
-            formData:{
-                seed: bip39.generateMnemonic(),
-                path: "m/84'/0'/0'/0/0"
-            }
+            formData: _formData,
+            errors: _errors
         })
+
+
+
     }
 
     async validateAndSubmit(e) {
@@ -132,13 +134,14 @@ class Form extends React.Component{
                         error={errors.has('seed')}
                         onChange={this.onChange}
                     />
+                    <FormMessage id={`seed-field-error-message`} error>
                     {
                         errors.has('seed') ?
-                            <FormMessage id={`seed-field-error-message`} error>
-                                Invalid Seed Mnemonic!
-                            </FormMessage>
+                                "Invalid Seed Mnemonic!"
                             : ""
                     }
+                    </FormMessage>
+
                 </div>
                 <div className="md-grid">
                     <TextArea
@@ -155,13 +158,14 @@ class Form extends React.Component{
                         value={this.state.formData.path}
                         onChange={this.onChange}
                     />
+                    <FormMessage id={`seed-field-error-message`} error>
                     {
                         errors.has('path') ?
-                            <FormMessage id={`seed-field-error-message`} error>
-                                Invalid Path!
-                            </FormMessage>
+                                "Invalid Path!"
                             : ""
                     }
+                    </FormMessage>
+
                 </div>
             </div>
             <div className="row">
