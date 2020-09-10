@@ -61,8 +61,6 @@ class Form extends React.Component{
     }
 
     submit(formData) {
-        console.log('error', this.state.errors.items)
-        console.log('error', this.state.errors.items.length)
         if(this.state.errors.items.length == 0)
             this.props.handleFormData(formData)
     }

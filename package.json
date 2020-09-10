@@ -15,6 +15,7 @@
     "hdkey": "^2.0.1",
     "material-ui-chip-input": "^1.1.0",
     "node-sass": "^4.14.1",
+    "qrcode.react": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-md": "^2.2.2",

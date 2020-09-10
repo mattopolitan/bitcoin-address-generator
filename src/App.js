@@ -6,6 +6,8 @@ import * as bip39 from 'bip39';
 import * as hdkey from 'hdkey';
 import * as createHash from 'create-hash';
 import * as bs58check from 'bs58check';
+import {Button} from 'react-md';
+import QRCode from 'qrcode.react';
 
 async function getSeed(_mnemonic){
   const result = await bip39.mnemonicToSeed(_mnemonic)
@@ -254,10 +256,13 @@ class App extends React.Component {
         </p>
         <p>
           {`Multi-sig P2SH address: ${multiAddress}`}
+          <QRCode value={multiAddress} size={128}/>
         </p>
         <div className="row">
           <div className="col-xs-4">
-            <button className="btn btn-block bg-pink waves-effect" onClick={() => this.changeView('form')}>Back</button>
+            <Button id="outlined-button-1" theme="primary" themeType="outline" onClick={() => this.changeView('form')}>
+              Back
+            </Button>
           </div>
         </div>
       </div>
