@@ -8,6 +8,7 @@ import * as createHash from 'create-hash';
 import * as bs58check from 'bs58check';
 import {Button} from 'react-md';
 import QRCode from 'qrcode.react';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 async function getSeed(_mnemonic){
   const result = await bip39.mnemonicToSeed(_mnemonic)
@@ -244,7 +245,8 @@ class App extends React.Component {
       }
     }
     if (this.state.view === 'result') {
-      view = <div>
+      if (this.state.form === 'hd-segwit'){
+        view = <div>
         <p>
           {`Master Private Key: ${masterPriKey}`}
         </p>
@@ -254,14 +256,37 @@ class App extends React.Component {
           {`Address: ${HDSegwit.pubAddress}`}<br />
           {`Public Key: ${HDSegwit.pubKey}`}
         </p>
+        <div className="row">
+          <div className="col-xs-4">
+            <Button id="outlined-button-1" theme="primary" themeType="outline" onClick={() => window.print()}>
+              Print
+            </Button>
+          </div>
+        </div>
+      </div>
+      }
+      view = <div>
         <p>
-          {`Multi-sig P2SH address: ${multiAddress}`}
+          <CopyToClipboard text={multiAddress} >
+            <div className={"bitcoin-address"}>
+              Multi-sig P2SH address: <br />
+              <span className={'copy-to-clipboard tooltip'}>
+                {multiAddress}
+                <span class="tooltiptext">Click to copy!</span>
+              </span>
+            </div>
+          </CopyToClipboard>
+        </p>
+        <p>
           <QRCode value={multiAddress} size={128}/>
         </p>
         <div className="row">
           <div className="col-xs-4">
-            <Button id="outlined-button-1" theme="primary" themeType="outline" onClick={() => this.changeView('form')}>
-              Back
+            {/* <Button id="outlined-button-1" theme="primary" themeType="outline" onClick={() => this.changeView('form')}> */}
+              {/* Back */}
+            {/* </Button> */}
+            <Button id="outlined-button-1" theme="primary" themeType="outline" onClick={() => window.print()}>
+              Print
             </Button>
           </div>
         </div>

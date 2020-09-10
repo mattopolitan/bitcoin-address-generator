@@ -1,5 +1,7 @@
-.md-grid{
-  *{
-    font-size: 16px !important;
-  }
-}
+@import '~@react-md/theme/dist/color-palette';
+
+$rmd-theme-primary: #F7931A;
+$rmd-theme-secondary: #FFF;
+
+@import "~react-md/dist/react-md";
+@include react-md-utils;

@@ -42,7 +42,46 @@
 }
 
 #view-container{
-
   min-height: 70vh;
   background: #FFF;
+}
+
+.copy-to-clipboard{
+  border-bottom: 1px dashed gray;
+  cursor: pointer;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dottedrgba(0,0,0,0.5); /* If you want dots under the hoverable text */
+  .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    top: -5px;
+    left: 102%;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+  .tooltiptext::after {
+      content: " ";
+      position: absolute;
+      top: 50%;
+      right: 100%; /* To the left of the tooltip */
+      margin-top: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent rgba(0,0,0,0.5) transparent transparent;
+  }
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
