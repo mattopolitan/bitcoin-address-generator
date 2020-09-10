@@ -2,6 +2,6 @@
 
 $rmd-theme-primary: #F7931A;
 $rmd-theme-secondary: #FFF;
-
+$rmd-theme-text-secondary-on-background: #FFF;
 @import "~react-md/dist/react-md";
 @include react-md-utils;

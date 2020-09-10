@@ -4,6 +4,7 @@ import ReeValidate from 'ree-validate'
 import classnames from 'classnames'
 import seed_validate from "../validators/rules/seed_validate";
 import path_validate from "../validators/rules/path_validate";
+import * as bip39 from 'bip39';
 
 ReeValidate.Validator.extend('seed_validate', {
     validate: (value, { compare }) => {
@@ -41,6 +42,7 @@ class Form extends React.Component{
 
         this.onChange = this.onChange.bind(this)
         this.validateAndSubmit = this.validateAndSubmit.bind(this)
+        this.generateRandomSeed = this.generateRandomSeed.bind(this)
     }
 
     onChange(e) {
@@ -58,11 +60,27 @@ class Form extends React.Component{
             .then(() => {
                 this.setState({ errors })
             })
+
+            console.log(errors)
     }
 
     submit(formData) {
         if(this.state.errors.items.length == 0)
             this.props.handleFormData(formData)
+    }
+
+    generateRandomSeed(){
+        let _formData = {
+            seed: bip39.generateMnemonic(),
+            path: "m/84'/0'/0'/0/0"
+        }
+
+        this.setState({
+            formData:{
+                seed: bip39.generateMnemonic(),
+                path: "m/84'/0'/0'/0/0"
+            }
+        })
     }
 
     async validateAndSubmit(e) {
@@ -106,8 +124,8 @@ class Form extends React.Component{
                         type="seed"
                         lineDirection="center"
                         className="md-cell md-cell--bottom form-control"
-                        rows={3}
-
+                        rows={6}
+                        value={this.state.formData.seed}
                         name="seed"
                         placeholder="Enter your seed"
                         required
@@ -129,11 +147,12 @@ class Form extends React.Component{
                         type="path"
                         lineDirection="center"
                         className="md-cell md-cell--bottom form-control"
-                        rows={3}
+                        rows={6}
                         name="path"
                         placeholder="m / purpose' / coin_type' / account' / change / address_index"
                         required
                         error={errors.has('path')}
+                        value={this.state.formData.path}
                         onChange={this.onChange}
                     />
                     {
@@ -143,6 +162,13 @@ class Form extends React.Component{
                             </FormMessage>
                             : ""
                     }
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-xs-4">
+                    <Button id="outlined-button-1" theme="primary" themeType="contained" onClick={() => this.generateRandomSeed()}>
+                        Generate randomly
+                    </Button>
                 </div>
             </div>
 

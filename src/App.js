@@ -159,7 +159,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mnemonic: 'veteran common receive uphold humble target fall black math play long frost',
+      mnemonic: '',
       masterPriKey: '',
       path: "m/84'/0'/0'/0/0",
       HDSegwit: '',
@@ -167,7 +167,7 @@ class App extends React.Component {
       m: 1,
       multiAddress: '',
       view: 'form',
-      form: 'multisig'
+      form: 'hd-segwit'
     };
     this.handleFormData = this.handleFormData.bind(this)
     this.changeView = this.changeView.bind(this)
@@ -233,7 +233,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { masterPriKey, masterPublicKey, path, HDSegwit, HDSegwitPubKey, multiAddress } = this.state
+    const { masterPriKey, masterPublicKey, mnemonic, path, HDSegwit, HDSegwitPubKey, multiAddress } = this.state
 
     let view
     if (this.state.view === 'form') {
@@ -247,14 +247,28 @@ class App extends React.Component {
     if (this.state.view === 'result') {
       if (this.state.form === 'hd-segwit'){
         view = <div>
-        <p>
+        {/* <p>
           {`Master Private Key: ${masterPriKey}`}
+        </p> */}
+        <p>
+          Your HD Segwit Wallet<br />
+          {`Path: ${path}`}<br />
+          {`Seed Mnemonic: ${mnemonic}`}<br />
+          {/* {`Public Key: ${HDSegwit.pubKey}`} */}
         </p>
         <p>
-          HDSegwit<br />
-          {`Path: ${path}`}<br />
-          {`Address: ${HDSegwit.pubAddress}`}<br />
-          {`Public Key: ${HDSegwit.pubKey}`}
+          <CopyToClipboard text={HDSegwit.pubAddress} >
+            <div className={"bitcoin-address"}>
+              Wallet Address: <br />
+              <span className={'copy-to-clipboard tooltip'}>
+                {HDSegwit.pubAddress}
+                <span class="tooltiptext">Click to copy!</span>
+              </span>
+            </div>
+          </CopyToClipboard>
+        </p>
+        <p>
+          <QRCode value={HDSegwit.pubAddress} size={128}/>
         </p>
         <div className="row">
           <div className="col-xs-4">
@@ -265,7 +279,8 @@ class App extends React.Component {
         </div>
       </div>
       }
-      view = <div>
+      if (this.state.form === 'multisig') {
+        view = <div>
         <p>
           <CopyToClipboard text={multiAddress} >
             <div className={"bitcoin-address"}>
@@ -291,13 +306,17 @@ class App extends React.Component {
           </div>
         </div>
       </div>
+      }
+      
     }
 
 
     return (
         <div className="App">
           <header className="App-header">
-            <img src={`./images/bitcoin.png`} className="App-logo" alt="logo" />
+            <a onClick={() => this.changeView('form')}> 
+              <img src={`./images/bitcoin.png`} className="App-logo" alt="logo" />
+            </a>
           </header>
           <div id={'view-container'}>
             {view}
