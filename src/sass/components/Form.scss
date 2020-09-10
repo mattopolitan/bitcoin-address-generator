@@ -1,0 +1,13 @@
+#generate-address{
+  max-width: $pageMaxWidth;
+  margin: auto;
+  #generate-address-container{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    > div {
+      padding: 10px;
+    }
+  }
+}

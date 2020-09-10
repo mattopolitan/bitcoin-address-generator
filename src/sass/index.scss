@@ -1,0 +1,47 @@
+
+@import "~react-md/dist/react-md";
+@include react-md-utils;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+}
+
+@mixin respond($size) {
+  @media #{$size} {
+    @content;
+  }
+}
+
+//Screen Size
+$pageMaxWidth: 1000px;
+$mobileMaxWidth: 450px;
+$desktop: "only screen and (min-width : "+$pageMaxWidth+")";
+$tablet: "only screen and (max-width: "+$pageMaxWidth+") and (min-width: "+$mobileMaxWidth+")";
+$mobile: "only screen and (max-width : "+$mobileMaxWidth+")";
+$iphone5: "only screen and (max-width : 320px)";
+
+.desktop-visible {
+  @include respond($mobile) {
+    display: none!important;
+  }
+}
+
+.mobile-visible {
+  display: none!important;
+  @include respond($mobile) {
+    display: block!important;
+  }
+}
+
+@import "components/App";
+@import "components/Form";
