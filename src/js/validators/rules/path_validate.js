@@ -1,7 +1,4 @@
-import * as bip39 from 'bip39';
-
-const HARDENED_OFFSET = 0x80000000
-
 export default ({ value, compare, validationType }) => {
-    return true;
+    if (typeof value === 'undefined') return true
+    return (value.match(/^([mM]{1}\/84'\/0'\/)[0-9]{1}'\/(0|1)\/([0-9]{1}|[1-9][0-9]{1,5})$/i)) ? true : false
 }

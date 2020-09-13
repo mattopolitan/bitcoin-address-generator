@@ -5,7 +5,6 @@ import classnames from 'classnames'
 import seed_validate from "../validators/rules/seed_validate";
 import path_validate from "../validators/rules/path_validate";
 import * as bip39 from 'bip39';
-import { CSSTransition } from 'react-transition-group';
 
 ReeValidate.Validator.extend('seed_validate', {
     validate: (value, { compare }) => {
@@ -59,9 +58,9 @@ class Form extends React.Component{
 
         this.validator.validate(name, value)
             .then(() => {
-                this.setState({ errors })
+                this.setState({ errors }, console.log(errors))
             })
-
+            
     }
 
     submit(formData) {
@@ -81,9 +80,6 @@ class Form extends React.Component{
             formData: _formData,
             errors: _errors
         })
-
-
-
     }
 
     async validateAndSubmit(e) {

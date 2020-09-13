@@ -3,7 +3,6 @@ import * as bip39 from 'bip39';
 export default ({ value, compare, validationType }) => {
     let pass = false;
     return bip39.validateMnemonic(value)
-    return pass;
 }
 
 const validateDate = (value, compare, validationType) => {

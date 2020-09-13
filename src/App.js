@@ -199,14 +199,18 @@ class App extends React.Component {
         pubkeys: pubkeys,
         m: _formData.m
       },  () => {
-
-        let result = bitcoin.payments.p2sh({
-          redeem: bitcoin.payments.p2ms({ m: parseInt(this.state.m), pubkeys }),
-        }).address;
-
-        this.setState({
-          multiAddress: result,
-        })
+        try{
+          let result = bitcoin.payments.p2sh({
+            redeem: bitcoin.payments.p2ms({ m: parseInt(this.state.m), pubkeys }),
+          }).address;
+  
+          this.setState({
+            multiAddress: result,
+          })
+        }catch (e) {
+          console.log(e)
+        }
+        
 
         this.changeView('result')
       });
