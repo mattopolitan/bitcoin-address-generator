@@ -1,0 +1,49 @@
+.address-info{
+    margin: auto;
+    position: relative;
+    max-width: 1000px;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px;
+    background: rgb(255, 255, 255);
+    border-radius: 30px;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include respond($mobile){
+        display: block;
+    }
+    .qr-code-container{
+        width: 30%;
+        @include respond($mobile){
+            width: 100%;
+        }
+    }
+    .detail-container{
+        width: 70%;
+        @include respond($mobile){
+            width: 100%;
+        }
+        .detail{
+            .row{
+                text-align: left;
+                border-bottom: 1px solid #A8A8A8;
+                word-break: break-all;
+            }
+            .title{
+                color: #888;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+        }
+        .disclaimer{
+            font-weight: bold;
+        }
+        .row{
+            padding: 10px 0;
+        }
+    }
+}
+.btn-print{
+    margin: 10px 0;
+}

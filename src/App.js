@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './js/components/Form';
 import FormMultiSig from './js/components/FormMultiSig';
+import AddressInfo from './js/components/AddressInfo';
 import * as bitcoin from 'bitcoinjs-lib';
 import * as bip39 from 'bip39';
 import * as hdkey from 'hdkey';
@@ -159,13 +160,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mnemonic: '',
-      masterPriKey: '',
-      path: "m/84'/0'/0'/0/0",
-      HDSegwit: '',
-      pubkeys: [],
-      m: 1,
-      multiAddress: '',
+      info: {
+        mnemonic: '',
+        masterPriKey: '',
+        path: "m/84'/0'/0'/0/0",
+        HDSegwit: '',
+        pubkeys: [],
+        m: 1,
+        multiAddress: '',
+      },
       view: 'form',
       form: 'hd-segwit'
     };
@@ -178,17 +181,21 @@ class App extends React.Component {
 
     if(this.state.form === 'hd-segwit'){
       this.setState({
-        path: _formData.path,
-        mnemonic: _formData.seed
+        info: { 
+          ...this.state.info, 
+          path: _formData.path,
+          mnemonic: _formData.seed,
+        }
       }, async () => {
-        const root = await getRootFromMnemonic(this.state.mnemonic)
-        const HDSegwit = await getHDSegwitFromRootWithPath(root, this.state.path)
-
+        const root = await getRootFromMnemonic(this.state.info.mnemonic)
+        const HDSegwit = await getHDSegwitFromRootWithPath(root, this.state.info.path)
         this.setState({
-          masterPriKey: await getPriKeyFromRoot(root),
-          HDSegwit: HDSegwit,
+          info: { 
+            ...this.state.info, 
+            masterPriKey: await getPriKeyFromRoot(root),
+            HDSegwit: HDSegwit,
+          }
         })
-
         this.changeView('result')
       });
     }
@@ -196,26 +203,30 @@ class App extends React.Component {
     if(this.state.form === 'multisig'){
       const pubkeys = _formData.pubkeys.map(hex => Buffer.from(hex, 'hex'));
       this.setState({
-        pubkeys: pubkeys,
-        m: _formData.m
-      },  () => {
+        info: { 
+          ...this.state.info, 
+          pubkeys: _formData.pubkeys,
+          m: _formData.m
+        }
+      }, () => {
         try{
           let result = bitcoin.payments.p2sh({
-            redeem: bitcoin.payments.p2ms({ m: parseInt(this.state.m), pubkeys }),
+            redeem: bitcoin.payments.p2ms({ m: parseInt(this.state.info.m), pubkeys }),
           }).address;
   
           this.setState({
-            multiAddress: result,
+            info: { 
+              ...this.state.info, 
+              multiAddress: result,
+            }
           })
         }catch (e) {
           console.log(e)
         }
-        
 
         this.changeView('result')
       });
     }
-
   }
 
   changeView(_view){
@@ -245,7 +256,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { masterPriKey, masterPublicKey, mnemonic, path, HDSegwit, HDSegwitPubKey, multiAddress } = this.state
+    const { masterPriKey, masterPublicKey, mnemonic, path, HDSegwit, HDSegwitPubKey, multiAddress } = this.state.info
 
     let view
     if (this.state.view === 'form') {
@@ -257,71 +268,8 @@ class App extends React.Component {
       }
     }
     if (this.state.view === 'result') {
-      if (this.state.form === 'hd-segwit'){
-        view = <div>
-        {/* <p>
-          {`Master Private Key: ${masterPriKey}`}
-        </p> */}
-        <p>
-          Your HD Segwit Wallet<br />
-          {`Path: ${path}`}<br />
-          {`Seed Mnemonic: ${mnemonic}`}<br />
-          {/* {`Public Key: ${HDSegwit.pubKey}`} */}
-        </p>
-        <p>
-          <CopyToClipboard text={HDSegwit.pubAddress} >
-            <div className={"bitcoin-address"}>
-              Wallet Address: <br />
-              <span className={'copy-to-clipboard tooltip'}>
-                {HDSegwit.pubAddress}
-                <span class="tooltiptext">Click to copy!</span>
-              </span>
-            </div>
-          </CopyToClipboard>
-        </p>
-        <p>
-          <QRCode value={HDSegwit.pubAddress} size={128}/>
-        </p>
-        <div className="row">
-          <div className="col-xs-4">
-            <Button id="outlined-button-1" theme="primary" themeType="outline" onClick={() => window.print()}>
-              Print
-            </Button>
-          </div>
-        </div>
-      </div>
-      }
-      if (this.state.form === 'multisig') {
-        view = <div>
-        <p>
-          <CopyToClipboard text={multiAddress} >
-            <div className={"bitcoin-address"}>
-              Multi-sig P2SH address: <br />
-              <span className={'copy-to-clipboard tooltip'}>
-                {multiAddress}
-                <span class="tooltiptext">Click to copy!</span>
-              </span>
-            </div>
-          </CopyToClipboard>
-        </p>
-        <p>
-          <QRCode value={multiAddress} size={128}/>
-        </p>
-        <div className="row">
-          <div className="col-xs-4">
-            {/* <Button id="outlined-button-1" theme="primary" themeType="outline" onClick={() => this.changeView('form')}> */}
-              {/* Back */}
-            {/* </Button> */}
-            <Button id="outlined-button-1" theme="primary" themeType="outline" onClick={() => window.print()}>
-              Print
-            </Button>
-          </div>
-        </div>
-      </div>
-      }
-      
+        view = <AddressInfo info={this.state.info} form={this.state.form}/>
     }
-
 
     return (
         <div className="App">

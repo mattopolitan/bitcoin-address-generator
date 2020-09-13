@@ -70,7 +70,7 @@ class Form extends React.Component{
 
     generateRandomSeed(){
         const _formData = {
-            seed: bip39.generateMnemonic(),
+            seed: bip39.generateMnemonic(256),
             path: "m/84'/0'/0'/0/0"
         }
         const _errors = this.validator.errors
