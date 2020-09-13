@@ -112,8 +112,7 @@ class FormMultiSig extends React.Component{
         const { errors } = this.state
         const disabled = errors.items.length != 0 || this.state.chips.length == 0 || this.state.number == 0
 
-        return (<form id="generate-address" onSubmit={this.validateAndSubmit}>
-            <br />
+        return (<form id="form-multisig" className={'form'} onSubmit={this.validateAndSubmit}>
             <div className="row">
                 <div className="col-xs-4">
                     <div className="col-xs-4">
@@ -123,12 +122,12 @@ class FormMultiSig extends React.Component{
                             {/*    Generate your Bitcoin Address!*/}
                             {/*</TextIconSpacing>*/}
                             {disabled ? '' : <DoneSVGIcon />}
-                            Generate your Bitcoin Address!
+                            Generate your <br className={'mobile-visible'} /> Bitcoin Address!
                         </Button>
                     </div>
                 </div>
             </div>
-            <div id={"generate-address-container"}>
+            <div className={"row"}>
 
                 <ChipInput
                     defaultValue={[
@@ -139,7 +138,8 @@ class FormMultiSig extends React.Component{
                     ]}
                     onChange={(chips) => this.handleUpdateChips(chips)}
                 />
-
+            </div>
+            <div className="row">
                 <Select
                     id="custom-select-1"
                     options={NUMBER_ITEMS.slice(0,this.state.chips.length)}

@@ -1,13 +1,34 @@
-#generate-address{
-  max-width: $pageMaxWidth;
+.form{
+  // max-width: $pageMaxWidth;
   margin: auto;
-  #generate-address-container{
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px, rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px;
+  background: rgb(255, 255, 255);
+  border-radius: 30px;
+  padding: 1rem;
+  // .form-container{
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    > div {
-      padding: 10px;
-    }
-  }
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   > div {
+  //     padding: 10px;
+  //   }
+  // }
+
+  display: grid;
+  grid-gap: 20px;
+  // .row{
+  //   margin: 20px 0 ;
+  // }
+}
+
+.MuiChip-label{
+  white-space: normal !important;
+  word-break: break-all;
+}
+.WAMuiChipInput-chipContainer-4{
+  justify-content: center;
 }

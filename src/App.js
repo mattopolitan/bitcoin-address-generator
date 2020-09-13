@@ -6,7 +6,7 @@ import * as bip39 from 'bip39';
 import * as hdkey from 'hdkey';
 import * as createHash from 'create-hash';
 import * as bs58check from 'bs58check';
-import {Button} from 'react-md';
+import {Button, Switch} from 'react-md';
 import QRCode from 'qrcode.react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
@@ -171,6 +171,7 @@ class App extends React.Component {
     };
     this.handleFormData = this.handleFormData.bind(this)
     this.changeView = this.changeView.bind(this)
+    this.changeForm = this.changeForm.bind(this)
   }
 
   handleFormData(_formData){
@@ -216,6 +217,13 @@ class App extends React.Component {
   changeView(_view){
     this.setState({
       view: _view
+    })
+  }
+
+  changeForm(){
+    let _form = this.state.form == 'hd-segwit' ? 'multisig' : 'hd-segwit'
+    this.setState({
+      form: _form
     })
   }
 
@@ -319,6 +327,14 @@ class App extends React.Component {
             </a>
           </header>
           <div id={'view-container'}>
+            {(this.state.view == 'form') ? 
+              <div className="switch">
+                <div>HD Segwit Wallet</div>
+                <div>
+                  <Switch id="switch-1" name="switch" label="Multi Sign Wallet" onChange={() => this.changeForm()} defaultChecked={ (this.state.form == 'multisig') ? true : false}/>
+                </div>
+              </div>
+            : ""}
             {view}
           </div>
         </div>

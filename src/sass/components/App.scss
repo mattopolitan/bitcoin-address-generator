@@ -44,6 +44,7 @@
 #view-container{
   min-height: 70vh;
   background: #FFF;
+  padding: 20px;
 }
 
 .copy-to-clipboard{
@@ -84,4 +85,13 @@
 }
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+
+.switch{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > div {
+    display: inline;
+  }
 }

@@ -5,6 +5,7 @@ import classnames from 'classnames'
 import seed_validate from "../validators/rules/seed_validate";
 import path_validate from "../validators/rules/path_validate";
 import * as bip39 from 'bip39';
+import { CSSTransition } from 'react-transition-group';
 
 ReeValidate.Validator.extend('seed_validate', {
     validate: (value, { compare }) => {
@@ -104,8 +105,7 @@ class Form extends React.Component{
         const { errors } = this.state
         const disabled = errors.items.length != 0 || this.state.formData.path == '' || this.state.formData.seed == ''
 
-        return (<form id="generate-address" onSubmit={this.validateAndSubmit}>
-            <br />
+        return (<form id="form-hd-segwit" className={'form'} onSubmit={this.validateAndSubmit}>
             <div className="row">
                 <div className="col-xs-4">
                     {/*<button className="btn btn-block bg-pink waves-effect" type="submit">Generate</button>*/}
@@ -114,11 +114,11 @@ class Form extends React.Component{
                         {/*    Generate your Bitcoin Address!*/}
                         {/*</TextIconSpacing>*/}
                         {disabled ? '' : <DoneSVGIcon />}
-                        Generate your Bitcoin Address!
+                        Generate your <br className={'mobile-visible'} />Bitcoin Address!
                     </Button>
                 </div>
             </div>
-            <div id={"generate-address-container"}>
+            <div className={"row"}>
                 <div className="md-grid">
                     <TextArea
                         id="seed"
@@ -143,6 +143,8 @@ class Form extends React.Component{
                     </FormMessage>
 
                 </div>
+            </div>
+            <div className="row">
                 <div className="md-grid">
                     <TextArea
                         id="path"
