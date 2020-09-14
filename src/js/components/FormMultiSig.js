@@ -87,7 +87,6 @@ class FormMultiSig extends React.Component{
     render() {
         const { errors } = this.state
         const disabled = errors.items.length !== 0 || this.state.formData.pubkeys.length === 0 || this.state.formData.n === 0
-        console.log(this.state.formData)
 
         return (<form id="form-multisig" className={'form'} onSubmit={this.validateAndSubmit}>
             <div className="row">
@@ -101,8 +100,8 @@ class FormMultiSig extends React.Component{
                 </div>
             </div>
             <div className={"row"}>
-                Enter your Public Keys<br />
-                Press Enter 1 by 1 <br /><br />
+                Type your Public Keys and press Enter<br />
+                (Support up to 15 keys)<br /><br />
                 <ChipInput
                     name={'pubkeys'}
                     onChange={(pubkeys) => this.handleUpdatePubkeys(pubkeys)}
@@ -111,7 +110,7 @@ class FormMultiSig extends React.Component{
                 <FormMessage id={`pubkeys-field-error-message`} error>
                     {
                         errors.has('pubkeys') ?
-                            "Invalid Public Key exists!"
+                            "Invalid Public Key exists! Make sure it's a 33 byte compressed Public Key!"
                         : ""
                     }
                 </FormMessage>
