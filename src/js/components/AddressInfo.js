@@ -10,13 +10,12 @@ class AddressInfo extends React.Component{
             info: this.props.info,
             form: this.props.form
         }
-
     }
 
     render() {
-
         const {path, mnemonic, HDSegwit, multiSigAddress, n, pubkeys} = this.state.info
         let qrcode, detail
+
         if(this.state.form === 'hd-segwit'){
             qrcode = <QRCode value={HDSegwit.pubAddress} size={128}/>
             detail = <div>
@@ -39,7 +38,7 @@ class AddressInfo extends React.Component{
                     </div>
                     <div className={"row"}>
                         <div className={'title'}>Seed Mnemonic</div>
-                        <div>{mnemonic}</div>
+                        <div className={'mnemonic'}>{mnemonic}</div>
                     </div>
                     <div className={"row"}>
                         <div className={'title'}>Path</div>
@@ -76,7 +75,7 @@ class AddressInfo extends React.Component{
                     </div>
                     <div className={"row"}>
                         <div className={'title'}>Associated Public Keys</div>
-                        <div>{pubkeys.map( (el, index) => {return <div>{index + 1}. {el}</div>} )}</div>
+                        <div className={'public-keys'}>{pubkeys.map( (el, index) => {return <div>{index + 1}. {el}</div>} )}</div>
                     </div>
                 </div>
                 <div className={"row"}>
@@ -90,7 +89,7 @@ class AddressInfo extends React.Component{
         return <div>
             <div className="address-info">
                 <div className="qr-code-container">
-                    Wallet QR Code <br /><br />
+                    Address QR Code <br /><br />
                     {qrcode}
                 </div>
                 <div className="detail-container">

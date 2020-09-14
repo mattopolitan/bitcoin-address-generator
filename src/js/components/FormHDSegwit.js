@@ -1,7 +1,6 @@
 import React from 'react';
-import { TextField, FormMessage, TextArea, Button, TextIconSpacing, DoneSVGIcon } from 'react-md';
+import { FormMessage, TextArea, Button, DoneSVGIcon } from 'react-md';
 import ReeValidate from 'ree-validate'
-import classnames from 'classnames'
 import seed_validate from "../validators/rules/seed_validate";
 import path_validate from "../validators/rules/path_validate";
 import * as bip39 from 'bip39';
@@ -10,16 +9,16 @@ ReeValidate.Validator.extend('seed_validate', {
     validate: (value, { compare }) => {
         return seed_validate({value, compare, validationType: ''});
     },
-    params: ['compare', 'dateType'],
-    message: 'The selected date must not be earlier than {dateType}'
+    params: ['compare'],
+    message: ''
 });
 
 ReeValidate.Validator.extend('path_validate', {
     validate: (value, { compare }) => {
         return path_validate({value, compare, validationType: ''});
     },
-    params: ['compare', 'dateType'],
-    message: 'The selected date must not be earlier than {dateType}'
+    params: ['compare'],
+    message: ''
 });
 
 class FormHDSegwit extends React.Component{
@@ -36,13 +35,26 @@ class FormHDSegwit extends React.Component{
                 seed: '',
                 path: '',
             },
-            number: 1,
             errors: this.validator.errors,
         }
 
+        this.generateRandomSeed = this.generateRandomSeed.bind(this)
         this.onChange = this.onChange.bind(this)
         this.validateAndSubmit = this.validateAndSubmit.bind(this)
-        this.generateRandomSeed = this.generateRandomSeed.bind(this)
+    }
+
+    generateRandomSeed(){
+        const _formData = {
+            seed: bip39.generateMnemonic(256),
+            path: "m/84'/0'/0'/0/0"
+        }
+        const _errors = this.validator.errors
+
+        _errors.items = []
+        this.setState({
+            formData: _formData,
+            errors: _errors
+        })
     }
 
     onChange(e) {
@@ -63,25 +75,6 @@ class FormHDSegwit extends React.Component{
             
     }
 
-    submit(formData) {
-        if(this.state.errors.items.length === 0)
-            this.props.handleFormData(formData)
-    }
-
-    generateRandomSeed(){
-        const _formData = {
-            seed: bip39.generateMnemonic(256),
-            path: "m/84'/0'/0'/0/0"
-        }
-        const _errors = this.validator.errors
-
-        _errors.items = []
-        this.setState({
-            formData: _formData,
-            errors: _errors
-        })
-    }
-
     async validateAndSubmit(e) {
         e.preventDefault()
 
@@ -95,6 +88,11 @@ class FormHDSegwit extends React.Component{
         } else {
             this.setState({ errors })
         }
+    }
+
+    submit(formData) {
+        if(this.state.errors.items.length === 0)
+            this.props.handleFormData(formData)
     }
 
     render() {
@@ -112,9 +110,6 @@ class FormHDSegwit extends React.Component{
             <div className="row">
                 <div className="col-xs-4">
                     <Button id="outlined-button-1" theme="primary" themeType="contained" type="submit" disabled={disabled}>
-                        {/*<TextIconSpacing icon={<DoneSVGIcon />}>*/}
-                        {/*    Generate your Bitcoin Address!*/}
-                        {/*</TextIconSpacing>*/}
                         {disabled ? '' : <DoneSVGIcon />}
                         Generate your <br className={'mobile-visible'} />Bitcoin Address!
                     </Button>
@@ -131,7 +126,7 @@ class FormHDSegwit extends React.Component{
                         rows={6}
                         value={this.state.formData.seed}
                         name="seed"
-                        placeholder="Enter your seed"
+                        placeholder="Enter your Seed Mnemonic"
                         required
                         error={errors.has('seed')}
                         onChange={this.onChange}
