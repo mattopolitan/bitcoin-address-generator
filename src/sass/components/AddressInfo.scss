@@ -13,6 +13,9 @@
     @include respond($mobile){
         display: block;
     }
+    &.hd-segwit{
+        max-width: 650px;
+    }
     .qr-code-container{
         width: 30%;
         @include respond($mobile){

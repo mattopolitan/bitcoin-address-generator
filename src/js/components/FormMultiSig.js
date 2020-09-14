@@ -86,7 +86,8 @@ class FormMultiSig extends React.Component{
 
     render() {
         const { errors } = this.state
-        const disabled = errors.items.length !== 0 || this.state.formData.pubkeys.length === 0 || this.state.formData.m === 0
+        const disabled = errors.items.length !== 0 || this.state.formData.pubkeys.length === 0 || this.state.formData.n === 0
+        console.log(this.state.formData)
 
         return (<form id="form-multisig" className={'form'} onSubmit={this.validateAndSubmit}>
             <div className="row">
@@ -110,8 +111,8 @@ class FormMultiSig extends React.Component{
                 <FormMessage id={`pubkeys-field-error-message`} error>
                     {
                         errors.has('pubkeys') ?
-                                "Invalid Public Key exists!"
-                            : ""
+                            "Invalid Public Key exists!"
+                        : ""
                     }
                 </FormMessage>
             </div>
@@ -126,6 +127,7 @@ class FormMultiSig extends React.Component{
                     type="n"
                     required
                     error={errors.has('n')}
+                    disabled={this.state.formData.pubkeys.length === 0}
                 />
             </div>
 

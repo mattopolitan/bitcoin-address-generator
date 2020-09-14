@@ -87,7 +87,7 @@ class AddressInfo extends React.Component{
         }
         
         return <div>
-            <div className="address-info">
+            <div className={`address-info ${this.state.form}`}>
                 <div className="qr-code-container">
                     Address QR Code <br /><br />
                     {qrcode}
