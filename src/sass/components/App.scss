@@ -26,6 +26,9 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: black;
+  a{
+    cursor: pointer;
+  }
 }
 
 .App-link {
@@ -60,8 +63,9 @@
   .tooltiptext {
     visibility: hidden;
     width: 120px;
-    top: -5px;
-    left: 102%;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
     background-color: rgba(0,0,0,0.5);
     color: #fff;
     text-align: center;
@@ -73,14 +77,14 @@
     z-index: 1;
   }
   .tooltiptext::after {
-      content: " ";
-      position: absolute;
-      top: 50%;
-      right: 100%; /* To the left of the tooltip */
-      margin-top: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: transparent rgba(0,0,0,0.5) transparent transparent;
+    content: " ";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.5) transparent transparent transparent;
   }
 }
 .tooltip:hover .tooltiptext {

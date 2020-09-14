@@ -22,7 +22,7 @@ ReeValidate.Validator.extend('path_validate', {
     message: 'The selected date must not be earlier than {dateType}'
 });
 
-class Form extends React.Component{
+class FormHDSegwit extends React.Component{
     constructor(props) {
         super(props)
 
@@ -64,7 +64,7 @@ class Form extends React.Component{
     }
 
     submit(formData) {
-        if(this.state.errors.items.length == 0)
+        if(this.state.errors.items.length === 0)
             this.props.handleFormData(formData)
     }
 
@@ -99,12 +99,18 @@ class Form extends React.Component{
 
     render() {
         const { errors } = this.state
-        const disabled = errors.items.length != 0 || this.state.formData.path == '' || this.state.formData.seed == ''
+        const disabled = errors.items.length !== 0 || this.state.formData.path === '' || this.state.formData.seed === ''
 
         return (<form id="form-hd-segwit" className={'form'} onSubmit={this.validateAndSubmit}>
             <div className="row">
                 <div className="col-xs-4">
-                    {/*<button className="btn btn-block bg-pink waves-effect" type="submit">Generate</button>*/}
+                    <Button id="outlined-button-1" theme="primary" themeType="outline" onClick={() => this.generateRandomSeed()}>
+                        Generate randomly
+                    </Button>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-xs-4">
                     <Button id="outlined-button-1" theme="primary" themeType="contained" type="submit" disabled={disabled}>
                         {/*<TextIconSpacing icon={<DoneSVGIcon />}>*/}
                         {/*    Generate your Bitcoin Address!*/}
@@ -148,7 +154,7 @@ class Form extends React.Component{
                         type="path"
                         lineDirection="center"
                         className="md-cell md-cell--bottom form-control"
-                        rows={6}
+                        rows={3}
                         name="path"
                         placeholder="m / purpose' / coin_type' / account' / change / address_index"
                         required
@@ -166,16 +172,10 @@ class Form extends React.Component{
 
                 </div>
             </div>
-            <div className="row">
-                <div className="col-xs-4">
-                    <Button id="outlined-button-1" theme="primary" themeType="contained" onClick={() => this.generateRandomSeed()}>
-                        Generate randomly
-                    </Button>
-                </div>
-            </div>
+
 
         </form>)
     }
 }
 
-export default Form;
+export default FormHDSegwit;

@@ -41,6 +41,22 @@
         }
         .row{
             padding: 10px 0;
+            @include respond($mobile){
+                :not(.title){
+                    font-size: 12px;
+                }
+                padding: 6px 0;
+            }
+        }
+        .rmd-icon{
+            height: 16px;
+            width: 16px;
+            padding-top: 4px;
+            margin-left: 5px;
+            cursor: pointer;
+            @include respond($mobile){
+                margin-left: 2px;
+            }
         }
     }
 }

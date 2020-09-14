@@ -21,37 +21,37 @@ class FormMultiSig extends React.Component{
 
         this.validator = new ReeValidate.Validator({
             pubkeys: 'required|pubkey_validate',
-            m: 'required|integer',
+            n: 'required|integer',
         })
 
         this.state = {
             formData: {
                 pubkeys: [],
-                m: 0,
+                n: 0,
             },
             errors: this.validator.errors,
         }
 
         this.validateAndSubmit = this.validateAndSubmit.bind(this)
         this.handleUpdatePubkeys = this.handleUpdatePubkeys.bind(this)
-        this.handleUpdateM = this.handleUpdateM.bind(this)
+        this.handleUpdateN = this.handleUpdateN.bind(this)
     }
 
-    handleUpdateM(_m){
+    handleUpdateN(_n){
         const { errors } = this.validator
 
-        errors.remove('m')
+        errors.remove('n')
 
-        this.setState({ formData: { ...this.state.formData, ['m']: _m } })
+        this.setState({ formData: { ...this.state.formData, ['n']: _n } })
 
-        this.validator.validate('m', _m)
+        this.validator.validate('n', _n)
             .then(() => {
                 this.setState({ errors })
             })
     }
 
     submit(formData) {
-        if(this.state.errors.items.length == 0)
+        if(this.state.errors.items.length === 0)
             this.props.handleFormData(formData)
     }
 
@@ -94,7 +94,7 @@ class FormMultiSig extends React.Component{
 
     render() {
         const { errors } = this.state
-        const disabled = errors.items.length != 0 || this.state.formData.pubkeys.length == 0 || this.state.formData.m == 0
+        const disabled = errors.items.length !== 0 || this.state.formData.pubkeys.length === 0 || this.state.formData.m === 0
 
         return (<form id="form-multisig" className={'form'} onSubmit={this.validateAndSubmit}>
             <div className="row">
@@ -135,15 +135,14 @@ class FormMultiSig extends React.Component{
             <div className="row">
                 <Select
                     id="custom-select-1"
-                    name="m"
+                    name="n"
                     options={NUMBER_ITEMS.slice(0,this.state.formData.pubkeys.length)}
-                    onChange={(m) => this.handleUpdateM(m)}
-                    label={'n-out-of-m'}
-                    value={this.state.formData.m}
-                    type="m"
-                    placeholder="Enter your m"
+                    onChange={(n) => this.handleUpdateN(n)}
+                    label={'n-of-m'}
+                    value={this.state.formData.n}
+                    type="n"
                     required
-                    error={errors.has('m')}
+                    error={errors.has('n')}
                 />
             </div>
 
