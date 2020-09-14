@@ -1,10 +1,25 @@
+# bitcoin-address-generator
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Please visit to the [demo](https://mattopolitan.github.io/bitcoin-address-generator/).
+
+Donation: 
+Bitcoin (BTC): bc1qyyultgrg3fay6feeas6jy6s0s3eym70gp0ntcx
+Ethereum (ETH): 0xF1DB880a944c51615CfD6901cD59F79721549307
+Tron (TRX): TB6zYF6e8eR7zTpYVYvkqo9n3eandrK6xY
+
+## Used Libraries 
+1. [bitcoinjs](https://github.com/bitcoinjs)
+2. [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib)
+3. [material-ui-chip-input](https://github.com/TeamWertarbyte/material-ui-chip-input)
+4. [react-md](https://react-md.dev/)
+5. [ree-validate](https://github.com/moeen-basra/ree-validate)
+6. [qrcode.react](https://github.com/zpao/qrcode.react)
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `npm run start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -12,12 +27,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `yarn test`
+### `npm run test`
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -27,7 +42,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -66,4 +81,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-# bitcoin-address-generator
