@@ -1,5 +1,11 @@
 # bitcoin-address-generator
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+This bitcoin-address-generator supports the following operations:
+
+1. Generate a Hierarchical Deterministic (HD) Segregated Witness (SegWit) bitcoin address from a given seed and path
+2. Generate an n-out-of-m Multisignature (multi-sig) Pay-To-Script-Hash (P2SH) bitcoin address, where n, m and public keys can be specified
+
 Please visit to the [demo](https://mattopolitan.github.io/bitcoin-address-generator/).
 
 Donation: 
