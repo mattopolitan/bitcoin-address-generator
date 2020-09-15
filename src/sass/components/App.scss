@@ -99,3 +99,21 @@
     display: inline;
   }
 }
+
+#pop-message{
+  position: absolute;
+  width: 60px;
+  bottom: 20px;
+  right: 0px;
+  opacity: 0;
+  color: $rmd-theme-primary;
+}
+
+.github-icon{
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  svg{
+    fill: #FFF
+  }
+}

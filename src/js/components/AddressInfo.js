@@ -22,11 +22,23 @@ class AddressInfo extends React.Component{
                 <div className="detail">
                     <div className={"row"} >
                         <div className={'title'}>Address</div>
-                        <CopyToClipboard text={HDSegwit.pubAddress} >
-                            <div className={"bitcoin-address"}>
+                        <CopyToClipboard text={HDSegwit.pubAddress}>
+                            <div className={"bitcoin-address"} onClick={()=> {
+                                    let el = document.getElementById('pop-message');
+                                    el.style.WebkitTransition = 'opacity 0s'
+                                    el.style.transition = 'opacity 0s'
+                                    el.style.opacity = '1';
+                                    setTimeout(()=>{
+                                        el.style.WebkitTransition = 'opacity .5s'
+                                        el.style.transition = 'opacity .5s'
+                                        el.style.opacity = '0';
+                                    },100)
+                                }
+                            }>
                                 <span className={'copy-to-clipboard tooltip'}>
                                         {HDSegwit.pubAddress}
-                                    <span className="tooltiptext">Click to copy!</span>
+                                    {/*<span className="tooltiptext">Click to copy!</span>*/}
+                                    <span id="pop-message">Copied!</span>
                                 </span>
                                 <ContentCopySVGIcon />
                             </div>

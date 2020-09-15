@@ -3,8 +3,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Please visit to the [demo](https://mattopolitan.github.io/bitcoin-address-generator/).
 
 Donation: 
+
 Bitcoin (BTC): bc1qyyultgrg3fay6feeas6jy6s0s3eym70gp0ntcx
+
 Ethereum (ETH): 0xF1DB880a944c51615CfD6901cD59F79721549307
+
 Tron (TRX): TB6zYF6e8eR7zTpYVYvkqo9n3eandrK6xY
 
 ## Used Libraries 
