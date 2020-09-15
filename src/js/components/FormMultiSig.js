@@ -1,6 +1,6 @@
 import React from 'react';
 import {FormMessage, Select, Button, DoneSVGIcon} from 'react-md';
-import ReeValidate from 'ree-validate'
+import ReeValidate from 'ree-validate';
 import pubkey_validate from "../validators/rules/pubkey_validate";
 
 import ChipInput from 'material-ui-chip-input';

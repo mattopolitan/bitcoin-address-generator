@@ -10,6 +10,28 @@
   display: grid;
   grid-gap: 20px;
 
+  .random{
+    display: flex;
+    justify-content: center;
+    @include respond($mobile){
+      display: block;
+    }
+    #outlined-button-1{
+      height: 40px;
+      @include respond($mobile){
+        margin-bottom: 20px;
+      }
+    }
+    #custom-select-1{
+      width: 100px;
+      height: 40px;
+      margin-left: 10px;
+      @include respond($mobile){
+        margin: auto;
+      }
+    }
+  }
+
   .rmd-icon{
     margin-right: 10px;
   }

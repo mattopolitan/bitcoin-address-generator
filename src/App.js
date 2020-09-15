@@ -13,7 +13,7 @@ async function getRootFromMnemonic(_mnemonic){
   const seed = await bip39.mnemonicToSeed(_mnemonic)
   const root = hdkey.fromMasterSeed(seed)
 
-  return root;
+  return root
 }
 
 function getPriKeyFromRoot(_root){
@@ -21,8 +21,8 @@ function getPriKeyFromRoot(_root){
 }
 
 function getHDSegwitFromRootWithPath(_root, _path){
-  const addrnode = _root.derive(_path);
-  const publicKey = addrnode._publicKey;
+  const addrnode = _root.derive(_path)
+  const publicKey = addrnode._publicKey
 
   return {
     pubKey: publicKey.toString('hex'),
