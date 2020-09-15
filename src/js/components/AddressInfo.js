@@ -26,7 +26,7 @@ class AddressInfo extends React.Component{
                             <div className={"bitcoin-address"}>
                                 <span className={'copy-to-clipboard tooltip'}>
                                         {HDSegwit.pubAddress}
-                                    <span class="tooltiptext">Click to copy!</span>
+                                    <span className="tooltiptext">Click to copy!</span>
                                 </span>
                                 <ContentCopySVGIcon />
                             </div>
@@ -37,7 +37,7 @@ class AddressInfo extends React.Component{
                         <div>HD Native Segwit</div>
                     </div>
                     <div className={"row"}>
-                        <div className={'title'}>Seed Mnemonic</div>
+                        <div className={'title'}>Mnemonic Seed</div>
                         <div className={'mnemonic'}>{mnemonic}</div>
                     </div>
                     <div className={"row"}>
@@ -47,7 +47,7 @@ class AddressInfo extends React.Component{
                 </div>
                 <div className={"row"}>
                     <div className={"disclaimer"}>
-                        Do not share your Seed Mnemonic! <br />
+                        Do not share your Mnemonic Seed! <br />
                         Make a backup!
                     </div>
                 </div>
@@ -63,7 +63,7 @@ class AddressInfo extends React.Component{
                             <div className={"bitcoin-address"}>
                                 <span className={'copy-to-clipboard tooltip'}>
                                         {multiSigAddress}
-                                    <span class="tooltiptext">Click to copy!</span>
+                                    <span className="tooltiptext">Click to copy!</span>
                                 </span>
                                 <ContentCopySVGIcon />
                             </div>

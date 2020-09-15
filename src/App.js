@@ -2,34 +2,8 @@ import React from 'react';
 import FormHDSegwit from './js/components/FormHDSegwit';
 import FormMultiSig from './js/components/FormMultiSig';
 import AddressInfo from './js/components/AddressInfo';
-import * as bitcoin from 'bitcoinjs-lib';
-import * as bip39 from 'bip39';
-import * as hdkey from 'hdkey';
-import * as createHash from 'create-hash';
-import * as bs58check from 'bs58check';
+import {getRootFromMnemonic, getHDSegwitFromRootWithPath, getPriKeyFromRoot, getMultiSigAddress} from './js/utils/utils';
 import {Switch} from 'react-md';
-
-async function getRootFromMnemonic(_mnemonic){
-  const seed = await bip39.mnemonicToSeed(_mnemonic)
-  const root = hdkey.fromMasterSeed(seed)
-
-  return root
-}
-
-function getPriKeyFromRoot(_root){
-  return _root.privateKey.toString('hex')
-}
-
-function getHDSegwitFromRootWithPath(_root, _path){
-  const addrnode = _root.derive(_path)
-  const publicKey = addrnode._publicKey
-
-  return {
-    pubKey: publicKey.toString('hex'),
-    pubAddress: bitcoin.payments.p2wpkh({ pubkey: publicKey }).address
-  }
-
-}
 
 class App extends React.Component {
   constructor(props) {
@@ -76,32 +50,29 @@ class App extends React.Component {
     }
 
     if(this.state.form === 'multi-sig'){
-      const pubkeys = _formData.pubkeys.map(hex => Buffer.from(hex, 'hex'));
-      this.setState({
-        info: { 
-          ...this.state.info, 
-          pubkeys: _formData.pubkeys,
-          n: _formData.n
-        }
-      }, () => {
-        try{
-          let result = bitcoin.payments.p2sh({
-            redeem: bitcoin.payments.p2ms({ m: parseInt(this.state.info.n), pubkeys }),
-          }).address;
-  
-          this.setState({
-            info: { 
-              ...this.state.info, 
-              multiSigAddress: result,
-            }
-          })
-        }catch (e) {
-          console.log(e)
-        }
+        this.setState({
+          info: {
+            ...this.state.info,
+            pubkeys: _formData.pubkeys,
+            n: _formData.n,
+          }
+        }, async () => {
+          try{
+            let result = await getMultiSigAddress(_formData.pubkeys, _formData.n)
 
-        this.changeView('result')
-      });
-    }
+            this.setState({
+              info: {
+                ...this.state.info,
+                multiSigAddress: result,
+              }
+            })
+          }catch (e) {
+            console.log(e)
+          }
+
+          this.changeView('result')
+        })
+      }
   }
 
   changeView(_view){

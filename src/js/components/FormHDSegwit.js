@@ -143,14 +143,14 @@ class FormHDSegwit extends React.Component{
                 <div className="md-grid">
                     <TextArea
                         id="seed"
-                        label="Seed Mnemonic"
+                        label="Mnemonic Seed"
                         type="seed"
                         lineDirection="center"
                         className="md-cell md-cell--bottom form-control"
                         rows={6}
                         value={this.state.formData.seed}
                         name="seed"
-                        placeholder="Enter your Seed Mnemonic"
+                        placeholder="Enter your Mnemonic Seed"
                         required
                         error={errors.has('seed')}
                         onChange={this.onChange}
@@ -158,7 +158,7 @@ class FormHDSegwit extends React.Component{
                     <FormMessage id={`seed-field-error-message`} error>
                     {
                         errors.has('seed') ?
-                                "Invalid Seed Mnemonic!"
+                                "Invalid Mnemonic Seed!"
                             : ""
                     }
                     </FormMessage>
